@@ -321,7 +321,11 @@ class GCM(object):
         # Successful response
         if response.status_code == 200:
             if is_json:
-                response = response.json()
+                try:
+                    response = response.json()
+                except:
+                    GCM.log('Response headers: {0}', response.headers)
+                    GCM.log('Response data: {0}', response.text)
             else:
                 response = response.content
             return response
