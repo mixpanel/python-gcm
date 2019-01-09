@@ -13,6 +13,7 @@ else:
     from urllib.parse import unquote
 
 GCM_URL = 'https://gcm-http.googleapis.com/gcm/send'
+FCM_URL = 'https://fcm.googleapis.com/fcm/send'
 
 
 class GCMException(Exception):
@@ -182,14 +183,18 @@ class GCM(object):
     logger = None
     logging_handler = None
 
-    def __init__(self, api_key, proxy=None, timeout=None, debug=False):
+    def __init__(self, api_key, proxy=None, timeout=None, debug=False, use_fcm=False):
         """ api_key : google api key
             url: url of gcm service.
             proxy: can be string "http://host:port" or dict {'https':'host:port'}
             timeout: timeout for every HTTP request, see 'requests' documentation for possible values.
         """
         self.api_key = api_key
-        self.url = GCM_URL
+
+        if use_fcm:
+            self.url = FCM_URL
+        else:
+            self.url = GCM_URL
 
         if isinstance(proxy, str):
             protocol = self.url.split(':')[0]
