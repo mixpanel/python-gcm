@@ -300,7 +300,7 @@ class GCM(object):
         GCM.log('Request headers: {0}', headers)
         GCM.log('Request proxy: {0}', self.proxy)
         GCM.log('Request timeout: {0}', self.timeout)
-        GCM.log('Request data: {0}', data)
+        GCM.log(u'Request data: {0}', data)
         GCM.log('Request is_json: {0}', is_json)
 
         new_session = None
@@ -318,7 +318,7 @@ class GCM(object):
 
         GCM.log('Response status: {0} {1}', response.status_code, response.reason)
         GCM.log('Response headers: {0}', response.headers)
-        GCM.log('Response data: {0}', response.text)
+        GCM.log(u'Response data: {0}', response.text)
 
         # 5xx or 200 + error:Unavailable
         self.retry_after = get_retry_after(response.headers)
@@ -330,7 +330,7 @@ class GCM(object):
                     response = response.json()
                 except:
                     GCM.log('Response headers: {0}', response.headers)
-                    GCM.log('Response data: {0}', response.text)
+                    GCM.log(u'Response data: {0}', response.text)
             else:
                 response = response.content
             return response
